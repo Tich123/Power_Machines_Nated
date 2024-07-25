@@ -23,47 +23,23 @@ document.addEventListener('DOMContentLoaded', () => {
         checkAuth();
     }
 
-    async function fetchCourses() {
-        const response = await fetch('http://localhost:3000/api/courses');
-        const courses = await response.json();
-        courses.forEach(course => {
-            const courseElement = document.createElement('div');
-            courseElement.classList.add('course');
-            courseElement.innerHTML = `
-                <h3>${course.title}</h3>
-                <p>${course.description.split('<')[0]}...</p>
-                <button onclick="viewCourse(${course.id})">View Course</button>
-            `;
-            courseList.appendChild(courseElement);
-        });
-    }
-
-    window.viewCourse = async function (courseId) {
-        const response = await fetch(`http://localhost:3000/api/courses/${courseId}`);
-        const course = await response.json();
-        if (course) {
-            const videoUrl = `https://drive.google.com/file/d/${course.videoId}/preview`;
-            courseDetailContent.innerHTML = `
-                <h3>${course.title}</h3>
-                <div>${course.description}</div>
-                <iframe width="560" height="315" src="${videoUrl}" frameborder="0" allowfullscreen></iframe>
-                <h4>Quiz</h4>
-                <p>${course.quiz.question}</p>
-                <ul>
-                    ${course.quiz.options.map(option => `<li><button onclick="checkAnswer('${course.quiz.answer}', '${option}')">${option}</button></li>`).join('')}
-                </ul>
-            `;
-            courseDetailSection.style.display = 'block';
-        }
-    };
-
-    window.checkAnswer = function (correctAnswer, selectedAnswer) {
-        if (correctAnswer === selectedAnswer) {
-            alert('Correct!');
-        } else {
-            alert('Incorrect, try again.');
-        }
-    };
+    // Fetch courses data from the backend
+    fetch('/api/courses')
+        .then(response => response.json())
+        .then(courses => {
+            console.log('Courses fetched:', courses); // Debug line
+            courses.forEach(course => {
+                const courseElement = document.createElement('div');
+                courseElement.classList.add('course');
+                courseElement.innerHTML = `
+                    <h3>${course.title}</h3>
+                    <p>${course.description.split('<')[0]}...</p>
+                    <button onclick="viewCourse(${course.id})">View Course</button>
+                `;
+                courseList.appendChild(courseElement);
+            });
+        })
+        .catch(error => console.error('Error fetching courses:', error));
 
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -96,7 +72,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    fetchCourses();
+    window.viewCourse = function (courseId) {
+        fetch(`/api/courses`)
+            .then(response => response.json())
+            .then(courses => {
+                const course = courses.find(c => c.id === courseId);
+                if (course) {
+                    const videoUrl = `https://drive.google.com/file/d/${course.videoId}/preview`;
+                    courseDetailContent.innerHTML = `
+                        <h3>${course.title}</h3>
+                        <div>${course.description}</div>
+                        <iframe width="560" height="315" src="${videoUrl}" frameborder="0" allowfullscreen></iframe>
+                        <h4>Quiz</h4>
+                        <p>${course.quiz.question}</p>
+                        <ul>
+                            ${course.quiz.options.map(option => `<li><button onclick="checkAnswer('${course.quiz.answer}', '${option}')">${option}</button></li>`).join('')}
+                        </ul>
+                    `;
+                    courseDetailSection.style.display = 'block';
+                }
+            })
+            .catch(error => console.error('Error fetching course details:', error));
+    };
+
+    window.checkAnswer = function (correctAnswer, selectedAnswer) {
+        if (correctAnswer === selectedAnswer) {
+            alert('Correct!');
+        } else {
+            alert('Incorrect, try again.');
+        }
+    };
+
     checkAuth();
 });
 
