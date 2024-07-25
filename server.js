@@ -23,9 +23,10 @@ function writeDataToFile(filename, content) {
 
 // Routes
 
-// Get all courses
+
+// Endpoint to serve courses data
 app.get('/api/courses', (req, res) => {
-    res.json(courses);
+    res.sendFile(path.join(__dirname, 'data', 'courses.json'));
 });
 
 // User registration

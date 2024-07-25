@@ -23,61 +23,41 @@ document.addEventListener('DOMContentLoaded', () => {
         checkAuth();
     }
 
-    async function fetchCourses() {
-        const response = await fetch('http://localhost:3000/api/courses');
-        const courses = await response.json();
-        courses.forEach(course => {
-            const courseElement = document.createElement('div');
-            courseElement.classList.add('course');
-            courseElement.innerHTML = `
-                <h3>${course.title}</h3>
-                <p>${course.description.split('<')[0]}...</p>
-                <button onclick="viewCourse(${course.id})">View Course</button>
-            `;
-            courseList.appendChild(courseElement);
-        });
-    }
+    // Fetch courses data from the backend
+    fetch('/api/courses')
+        .then(response => response.json())
+        .then(courses => {
+            courses.forEach(course => {
+                const courseElement = document.createElement('div');
+                courseElement.classList.add('course');
+                courseElement.innerHTML = `
+                    <h3>${course.title}</h3>
+                    <p>${course.description.split('<')[0]}...</p>
+                    <button onclick="viewCourse(${course.id})">View Course</button>
+                `;
+                courseList.appendChild(courseElement);
+            });
+        })
+        .catch(error => console.error('Error fetching courses:', error));
 
-    loginForm.addEventListener('submit', async (e) => {
+    loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        const response = await fetch('http://localhost:3000/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username, password })
-        });
-        const data = await response.json();
-        if (response.status === 200) {
-            localStorage.setItem('username', username);
-            checkAuth();
-            loginSection.style.display = 'none';
-        } else {
-            alert(data.message);
-        }
+        localStorage.setItem('username', username);
+        localStorage.setItem('password', password);
+        checkAuth();
+        loginSection.style.display = 'none';
     });
 
-    registerForm.addEventListener('submit', async (e) => {
+    registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const newUsername = document.getElementById('new-username').value;
         const newPassword = document.getElementById('new-password').value;
-        const response = await fetch('http://localhost:3000/api/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username: newUsername, password: newPassword })
-        });
-        const data = await response.json();
-        if (response.status === 201) {
-            localStorage.setItem('username', newUsername);
-            checkAuth();
-            registerSection.style.display = 'none';
-        } else {
-            alert(data.message);
-        }
+        localStorage.setItem('username', newUsername);
+        localStorage.setItem('password', newPassword);
+        checkAuth();
+        registerSection.style.display = 'none';
     });
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -91,24 +71,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    window.viewCourse = async function (courseId) {
-        const response = await fetch(`http://localhost:3000/api/courses`);
-        const courses = await response.json();
-        const course = courses.find(c => c.id === courseId);
-        if (course) {
-            const videoUrl = `https://drive.google.com/file/d/${course.videoId}/preview`;
-            courseDetailContent.innerHTML = `
-                <h3>${course.title}</h3>
-                <div>${course.description}</div>
-                <iframe width="560" height="315" src="${videoUrl}" frameborder="0" allowfullscreen></iframe>
-                <h4>Quiz</h4>
-                <p>${course.quiz.question}</p>
-                <ul>
-                    ${course.quiz.options.map(option => `<li><button onclick="checkAnswer('${course.quiz.answer}', '${option}')">${option}</button></li>`).join('')}
-                </ul>
-            `;
-            courseDetailSection.style.display = 'block';
-        }
+    window.viewCourse = function (courseId) {
+        fetch(`/api/courses`)
+            .then(response => response.json())
+            .then(courses => {
+                const course = courses.find(c => c.id === courseId);
+                if (course) {
+                    const videoUrl = `https://drive.google.com/file/d/${course.videoId}/preview`;
+                    courseDetailContent.innerHTML = `
+                        <h3>${course.title}</h3>
+                        <div>${course.description}</div>
+                        <iframe width="560" height="315" src="${videoUrl}" frameborder="0" allowfullscreen></iframe>
+                        <h4>Quiz</h4>
+                        <p>${course.quiz.question}</p>
+                        <ul>
+                            ${course.quiz.options.map(option => `<li><button onclick="checkAnswer('${course.quiz.answer}', '${option}')">${option}</button></li>`).join('')}
+                        </ul>
+                    `;
+                    courseDetailSection.style.display = 'block';
+                }
+            })
+            .catch(error => console.error('Error fetching course details:', error));
     };
 
     window.checkAnswer = function (correctAnswer, selectedAnswer) {
@@ -120,6 +103,5 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     checkAuth();
-    fetchCourses();
 });
 
