@@ -25,7 +25,13 @@ nav a:hover {
 section {
     padding: 2rem;
 }
-
+header {
+    background-color: #8b00cc;
+    color: black;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 .course-list {
     display: flex;
     flex-wrap: wrap;
@@ -45,6 +51,7 @@ section {
 .course h3 {
     font-size: 1.5rem;
     margin-top: 0;
+    font-color: block;
 }
 
 .course p {
@@ -103,7 +110,7 @@ section {
 }
 
 form {
-    background-color: white;
+    background-color: grey;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -151,10 +158,4 @@ form a {
 form a:hover {
     text-decoration: underline;
 }
-header {
-    background-color: #0044cc;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+
