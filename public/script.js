@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('/api/courses')
         .then(response => response.json())
         .then(courses => {
+            console.log('Courses fetched:', courses); // Debug line
             courses.forEach(course => {
                 const courseElement = document.createElement('div');
                 courseElement.classList.add('course');
