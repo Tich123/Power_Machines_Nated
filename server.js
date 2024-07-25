@@ -1,38 +1,27 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 const fs = require('fs');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
+// Enable CORS
 app.use(cors());
 
-let courses = require('./data/courses.json');
-let users = require('./data/users.json');
-
-// Helper function to write data to file
-function writeDataToFile(filename, content) {
-    fs.writeFileSync(filename, JSON.stringify(content, null, 2), 'utf8', (err) => {
-        if (err) {
-            console.error(`Error writing to ${filename}:`, err);
-        }
-    });
-}
-
-// Routes
-
-
-// Serve static files from the 'public' directory
+// Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Endpoint to serve courses data
+// Route to get courses data
 app.get('/api/courses', (req, res) => {
-    res.sendFile(path.join(__dirname, 'data', 'courses.json'));
+    fs.readFile(path.join(__dirname, 'data', 'courses.json'), 'utf8', (err, data) => {
+        if (err) {
+            res.status(500).send('Error reading courses data');
+            return;
+        }
+        res.json(JSON.parse(data));
+    });
 });
-});
-
 // User registration
 app.post('/api/register', (req, res) => {
     const { username, password } = req.body;
@@ -57,6 +46,7 @@ app.post('/api/login', (req, res) => {
 
 // Serve static files
 app.use(express.static('public'));
+
 
 // Start server
 app.listen(PORT, () => {

@@ -2,45 +2,29 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
 }
 
-header {
-    background-color: #0044cc;
-    color: white;
-    padding: 1rem;
+nav {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
 }
 
 nav a {
-    color: white;
-    margin: 0 1rem;
+    color: #fff;
     text-decoration: none;
+    margin: 0 15px;
 }
 
-nav a.active {
-    font-weight: bold;
-    color: #00aaff;
-}
-nav a:hover {
-    text-decoration: underline;
+.course-list {
+    padding: 20px;
 }
 
-main {
-    padding: 2rem;
+.course {
+    margin-bottom: 15px;
 }
 
-footer {
-    background-color: #0044cc;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-.hero {
-    text-align: center;
-    padding: 2rem;
+button {
+    cursor: pointer;
 }
 
