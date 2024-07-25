@@ -7,10 +7,37 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<header>
+        <h1>Power Machines N6 Engineering Online Platform</h1>
     <nav>
+	<a href="#home" aria-label="Home">Home</a>
+	<a href="#about" aria-label="About">About</a>
         <a href="#courses" id="courses-link">Courses</a>
+	<a href="#contact" aria-label="Contact">Contact</a>
         <a href="#login" id="auth-link">Login</a>
     </nav>
+<header>
+     <main>
+        <section id="home">
+            <h2>Welcome to Our Engineering Online Course Platform</h2>
+            <p>Learn at your own pace with our online courses.</p>
+	    </section>
+     <section id="about">
+            <h2>About Us</h2>
+            <p>We are committed to providing high-quality online education.</p>
+        </section>
+	 <section id="contact">
+            <h2>Contact Us: +2781 524 3477</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
     <section id="courses" style="display: block;">
         <div class="course-list"></div>
     </section>
