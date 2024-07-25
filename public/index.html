@@ -3,41 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Tichdoc Engineering Online Course Platform</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav>
-        <a href="#courses" id="courses-link">Courses</a>
-        <a href="#login" id="auth-link">Login</a>
-    </nav>
-    <section id="courses" style="display: block;">
-        <div class="course-list"></div>
-    </section>
-    <section id="course-detail" style="display: none;">
-        <div id="course-detail-content"></div>
-        <button onclick="document.getElementById('course-detail').style.display='none'">Close</button>
-    </section>
-    <section id="login" style="display: none;">
-        <form id="login-form">
-            <label for="username">Username:</label>
-            <input type="text" id="username" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" required>
-            <button type="submit">Login</button>
-        </form>
-        <p>Don't have an account? <a href="#register">Register</a></p>
-    </section>
-    <section id="register" style="display: none;">
-        <form id="register-form">
-            <label for="new-username">Username:</label>
-            <input type="text" id="new-username" required>
-            <label for="new-password">Password:</label>
-            <input type="password" id="new-password" required>
-            <button type="submit">Register</button>
-        </form>
-        <p>Already have an account? <a href="#login">Login</a></p>
-    </section>
+    <header>
+        <h1>Power Machines N6 Engineering Online Platform</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li id="auth-link"><a href="#login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="active">
+            <h2>Welcome to Our Engineering Online Course Platform</h2>
+            <p>Learn at your own pace with our online courses.</p>
+        </section>
+
+        <section id="courses">
+            <h2>Courses</h2>
+            <div class="course-list">
+                <!-- Courses will be populated here by JavaScript -->
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>About Us</h2>
+            <p>We are committed to providing high-quality online education.</p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Us: +2781 524 3477</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+
+        <section id="login" class="auth-section">
+            <h2>Login</h2>
+            <form id="login-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#register">Register</a></p>
+        </section>
+
+        <section id="register" class="auth-section">
+            <h2>Register</h2>
+            <form id="register-form">
+                <label for="new-username">Username:</label>
+                <input type="text" id="new-username" name="new-username" required>
+                <label for="new-password">Password:</label>
+                <input type="password" id="new-password" name="new-password" required>
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="#login">Login</a></p>
+        </section>
+
+        <section id="course-detail" class="course-detail-section">
+            <h2>Course Detail</h2>
+            <div id="course-detail-content">
+                <!-- Course details will be populated here by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 @TichMashava rights reserved</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
