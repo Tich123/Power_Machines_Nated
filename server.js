@@ -14,8 +14,10 @@ app.use(express.static(path.join(__dirname)));
 
 // Route to get courses data
 app.get('/api/courses', (req, res) => {
-    fs.readFile(path.join(__dirname, 'courses.json'), 'utf8', (err, data) => {
+    const filePath = path.join(__dirname, 'courses.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
+            console.error('Error reading courses data:', err);
             res.status(500).send('Error reading courses data');
             return;
         }

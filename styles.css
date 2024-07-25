@@ -1,104 +1,84 @@
+/* Basic styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #1e3c72, #2a5298);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensure full height of viewport */
+    background-color: #f4f4f4;
 }
 
 header {
-    background-color: #333;
+    background-color: #0044cc;
     color: white;
     padding: 1rem;
-}
-
-header h1 {
-    margin: 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 nav ul {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
-    display: flex;
-    justify-content: center;
 }
 
-nav ul li {
+nav li {
+    display: inline;
     margin: 0 1rem;
 }
 
-nav ul li a {
-    color: green;
+nav a {
+    color: white;
     text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+nav a:hover {
+    text-decoration: underline;
+    color: #00aaff;
 }
 
 main {
-    padding: 1rem;
-    flex: 1; /* Grow to fill remaining space */
-}
-
-section {
-    margin: 2rem 0;
-}
-
-.course-list {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.course {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin: 1rem;
-    padding: 1rem;
-    width: calc(33.333% - 2rem);
-    box-sizing: border-box;
-    background-color: grey;
-    color: black;
-}
-
-.course h3 {
-    margin-top: 0;
-}
-
-.auth-section {
-    display: none;
-}
-
-.course-detail-section {
-    display: none;
+    padding: 2rem;
 }
 
 footer {
-    background-color: #333;
-    color: green;
+    background-color: #0044cc;
+    color: white;
     text-align: center;
-    padding: 1rem 9;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
     width: 100%;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 768px) {
-    .course {
-        width: calc(50% - 2rem);
-    }
+.hero {
+    text-align: center;
+    padding: 4rem;
+    background: #0044cc;
+    color: white;
 }
 
-@media (max-width: 480px) {
-    .course {
-        width: 100%;
-        margin: 1rem 0;
-    }
+button {
+    background-color: #0044cc;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
+button:hover {
+    background-color: #0033aa;
+}
 
-    nav ul li {
+/* Responsive design */
+@media (max-width: 600px) {
+    nav li {
+        display: block;
         margin: 0.5rem 0;
+    }
+
+    .hero {
+        padding: 2rem;
     }
 }
 
