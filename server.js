@@ -24,9 +24,13 @@ function writeDataToFile(filename, content) {
 // Routes
 
 
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Endpoint to serve courses data
 app.get('/api/courses', (req, res) => {
     res.sendFile(path.join(__dirname, 'data', 'courses.json'));
+});
 });
 
 // User registration
